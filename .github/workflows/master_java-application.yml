@@ -26,7 +26,7 @@ jobs:
           name: java-app
           path: '${{ github.workspace }}/target/*.jar'
 
-  deploy:
+  deployqualif:
     runs-on: windows-latest
     needs: build
     environment:
@@ -45,5 +45,28 @@ jobs:
         with:
           app-name: 'java-application'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.publishprofile }}
+          publish-profile: ${{ secrets.publishprofilequalif }}
+          package: '*.jar'
+
+
+  deployprod:
+    runs-on: windows-latest
+    needs: build
+    environment:
+      name: 'Production'
+      url: ${{ steps.deploy-to-webapp-prod.outputs.webapp-url }}
+
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v3
+        with:
+          name: java-app
+
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp-prod
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'java-application'
+          slot-name: 'Production'
+          publish-profile: ${{ secrets.publishprofileprod }}
           package: '*.jar'
