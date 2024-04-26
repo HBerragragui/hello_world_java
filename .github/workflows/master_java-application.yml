@@ -43,7 +43,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'jjavaApplicationHBRG'
+          app-name: 'javaApplicationHBRG'
           slot-name: 'Production'
           publish-profile: ${{ secrets.PUBLISHPROFILEWEBAPPHBRG }}
           package: '*.jar'
