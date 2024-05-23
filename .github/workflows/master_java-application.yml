@@ -45,6 +45,6 @@ jobs:
         with:
           app-name: 'javaApplicationHBRG'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.PUBLISHPROFILEWEBAPPHBRG }}
+          publish-profile: ${{ secrets.PUBLISHPROFILEWEBAPP }}
           package: '*.jar'
 
